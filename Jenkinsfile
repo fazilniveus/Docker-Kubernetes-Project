@@ -6,7 +6,7 @@ pipeline {
 	
 	environment {
 		PROJECT_ID = 'niveus-technology-rnd'
-                CLUSTER_NAME = 'cicdjenkins'
+                CLUSTER_NAME = 'faz'
                 LOCATION = 'us-central1-c'
                 CREDENTIALS_ID = 'kubernetes'		
 	}

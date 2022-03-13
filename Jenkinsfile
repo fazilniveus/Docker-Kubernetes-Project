@@ -6,8 +6,8 @@ pipeline {
 	
 	environment {
 		PROJECT_ID = 'niveus-technology-rnd'
-                CLUSTER_NAME = 'faz'
-                LOCATION = 'us-central1-c'
+                CLUSTER_NAME = 'jen-cluster-jenkins'
+                LOCATION = 'us-central1-a'
                 CREDENTIALS_ID = 'kubernetes'		
 	}
 	

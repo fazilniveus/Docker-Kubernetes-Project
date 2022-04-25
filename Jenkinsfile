@@ -7,7 +7,7 @@ pipeline {
 	environment {
 		PROJECT_ID = 'niveus-technology-rnd'
                 CLUSTER_NAME = 'jen-cluster'
-                LOCATION = 'us-central1-a'
+                LOCATION = 'asia-south1-a'
                 CREDENTIALS_ID = 'kubernetes'		
 	}
 	

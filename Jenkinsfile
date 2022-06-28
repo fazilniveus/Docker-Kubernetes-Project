@@ -67,8 +67,7 @@ pipeline {
                     steps {
                         sh 'echo "Hello World"'
                         sh '''
-                            sudo docker run --detach --name zap -u zap -v "$(pwd)/reports":/zap/reports/:rw   -i owasp/zap2docker-stable zap.sh -daemon -host 0.0.0.0 -port 8080   -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true   -config api.disablekey=true
-                            sudo docker exec zap zap-cli --verbose quick-scan https://niveussolutions.com
+                            docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' https://niveussolutions.com  && docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
 		            sudo docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
                         '''
                     }

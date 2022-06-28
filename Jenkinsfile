@@ -64,7 +64,7 @@ pipeline {
 			    echo "Deployment Finished ..."
 		    }
 	    }
-	    stage('Build') {
+	    stage('Zap Installation') {
                     steps {
                         sh 'echo "Hello World"'
                         sh '''

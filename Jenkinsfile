@@ -69,6 +69,7 @@ pipeline {
                         sh '''
                             docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' https://niveussolutions.com  && docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
 		            sudo docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
+			    sudo docker cp zap:/zap/owasp-quick-scan-report.html /home/mohammad_fazil/
                         '''
                     }
             }

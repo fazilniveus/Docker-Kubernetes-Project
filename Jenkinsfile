@@ -70,6 +70,7 @@ pipeline {
 	    stage('Zap Installation') {
                     steps {
                         sh 'echo "Hello World"'
+			sh 'kubectl get pods'
 			sh 'kubectl get service myapp > intake.txt'
                         sh '''
 			    

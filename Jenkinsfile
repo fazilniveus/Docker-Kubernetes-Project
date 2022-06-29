@@ -80,9 +80,9 @@ pipeline {
 			    awk '{print $4}' intake.txt > extract.txt
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
+			    host="http://${ip}"
 			    
-			    
-                            docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $ip 
+                            docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host 
 			    docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html 
 			    sudo docker cp zap:/zap/owasp-quick-scan-report.html /home/mohammad_fazil/
 		            

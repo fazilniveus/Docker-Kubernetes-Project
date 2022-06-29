@@ -62,10 +62,7 @@ pipeline {
 				step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'deployment.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
 			    	echo "Deployment Finished ..."
 			    sh '''
-			     	kubectl get service myapp > intake.txt
-			    	awk '{print $4}' intake.txt > extract.txt
-			    	grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
-			    	$ip=$(cat out.txt)
+
 			    '''
 			    
 		    }
@@ -74,7 +71,10 @@ pipeline {
                     steps {
                         sh 'echo "Hello World"'
                         sh '''
-			    
+			    kubectl get service myapp > intake.txt
+			    awk '{print $4}' intake.txt > extract.txt
+			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
+			    $ip=$(cat out.txt)			    
 			    
 			    
                             docker run -i owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $ip 

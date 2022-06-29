@@ -82,7 +82,12 @@ pipeline {
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    
-                             docker run -i  --name=zap owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host 
+                            docker run -i  --name=zap owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host
+			    docker ps -a > t1.txt
+ 			    awk '{print $1}' t1.txt > t2.txt
+   			    head -2 t2.txt | tail -1 >t3.txt
+ 			    var=$(cat t3.txt)
+ 			    docker restart var
 			    docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html 
 			    sudo docker cp zap:/zap/owasp-quick-scan-report.html /home/mohammad_fazil/
 		            

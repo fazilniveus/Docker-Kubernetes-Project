@@ -67,7 +67,7 @@ pipeline {
                     steps {
                         sh 'echo "Hello World"'
                         sh '''
-			    sudo gcloud container clusters get-credentials jen-cluster --zone asia-south1-a --project tech-rnd-project
+			    sudo gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project
 			    kubectl get svc myapp > intake.txt
 			    awk '{print $4}' intake.txt > extract.txt
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt

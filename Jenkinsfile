@@ -70,8 +70,10 @@ pipeline {
 	    stage('Zap Installation') {
                     steps {
                         sh 'echo "Hello World"'
+			sh 'sleep 60'
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
-			sh 'kubectl get pods'
+			sh 'kubectl get pods'	
+			sh 'sleep 10'
 			sh 'kubectl get service myapp > intake.txt'
                         sh '''
 			    

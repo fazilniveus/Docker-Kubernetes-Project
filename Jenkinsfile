@@ -88,6 +88,7 @@ pipeline {
    			    head -2 t2.txt | tail -1 >t3.txt
  			    var=$(cat t3.txt)
  			    docker restart $var
+			    sudo docker exec zap zap-cli --verbose quick-scan $ip
 			    docker exec zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html 
 			    sudo docker cp zap:/zap/owasp-quick-scan-report.html /home/mohammad_fazil/
 		            

@@ -81,8 +81,11 @@ pipeline {
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			    
-                            
+			    sudo apt-get install python3-pip
+                            pip install --upgrade zapcli
+  			    sudo apt update
+   	    	  	    sudo apt install snapd
+  			    sudo snap install zaproxy --classic
  			    
 			    docker run -d --name=zap owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host
 			    docker exec -d zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html

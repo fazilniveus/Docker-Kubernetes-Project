@@ -82,7 +82,7 @@ pipeline {
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    sudo apt-get install python3-pip
-                            pip install --upgrade zapcli
+                            pip3 install --upgrade zapcli
   			    sudo apt update
    	    	  	    sudo apt install snapd
   			    sudo snap install zaproxy --classic

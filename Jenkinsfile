@@ -84,9 +84,9 @@ pipeline {
 			    
                             
  			    
-			    docker run -d --name=zap owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host 
-			    docker exec -d zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
-			    docker exec -d zap ls -a
+			    docker run -it --name=zap owasp/zap2docker-stable zap-cli quick-scan --self-contained     --start-options '-config api.disablekey=true' $host 
+			    docker exec  zap zap-cli --verbose report -o /zap/owasp-quick-scan-report.html --output-format html
+			    docker exec  zap ls -a
 			    docker cp zap:/zap/owasp-quick-scan-report.html /home/mohammad_fazil/ 
 		            
 			    

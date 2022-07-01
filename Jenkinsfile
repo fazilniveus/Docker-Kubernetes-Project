@@ -82,12 +82,13 @@ pipeline {
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    sudo apt-get install python3-pip
-                            
-  			    sudo apt update
-   	    	  	    sudo apt install snapd
-  			    sudo snap install zaproxy --classic
-			    pip3 install --upgrade zapcli
- 			    zap-cli --zap-path /usr/share/zaproxy --api-key 12345 quick-scan --self-contained -o '-config api.key=12345' -s xss $host   
+                            curl -Ls https://github.com/zaproxy/zaproxy/releases/download/v2.9.0/ZAP_2.9.0_Linux.tar.gz > /tmp/ZAP_2.9.0_Linux.tar.gz
+			    cd /tmp
+			    tar -zxvf ZAP_2.9.0_Linux.tar.gz
+	     		    sudo mv /tmp/ZAP_2.9.0 /opt/
+			    cd /opt
+  			  
+ 			    zap-cli --zap-path /opt/ZAP_2.9.0 --api-key 12345 quick-scan --self-contained -o '-config api.key=12345' -s xss $host   
 		            			    
                         '''
                     }

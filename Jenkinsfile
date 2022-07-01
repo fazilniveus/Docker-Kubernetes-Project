@@ -88,9 +88,7 @@ pipeline {
   			    sudo snap install zaproxy --classic
 			    pip3 install --upgrade zapcli
  			    
-			    zap-cli --verbose quick-scan $host
-			    zap-cli --verbose report -o owasp-quick-scan-report.html --output-format html
-			 
+			    zap.sh -quickurl $host -quickout /home/mohammad_fazil/report.xml
 			    
 		            
 			    

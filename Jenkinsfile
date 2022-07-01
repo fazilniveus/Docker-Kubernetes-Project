@@ -87,7 +87,7 @@ pipeline {
 			    tar -zxvf ZAP_2.9.0_Linux.tar.gz
 	     		    sudo mv /tmp/ZAP_2.9.0 /opt/
 			    cd /opt
-  			  
+  			    pip3 install --upgrade zapcli
  			    zap-cli --zap-path /opt/ZAP_2.9.0 --api-key 12345 quick-scan --self-contained -o '-config api.key=12345' -s xss $host   
 		            			    
                         '''

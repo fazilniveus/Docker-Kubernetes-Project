@@ -82,10 +82,11 @@ pipeline {
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    sudo apt-get install python3-pip
-                            pip3 install --upgrade zapcli
+                            
   			    sudo apt update
    	    	  	    sudo apt install snapd
   			    sudo snap install zaproxy --classic
+			    pip3 install --upgrade zapcli
  			    
 			    zap-cli quick-scan -s xss,sqli --spider -r $host 
 			    zap-cli report -o ZAP_Report.html -f html   

@@ -88,8 +88,8 @@ pipeline {
   			    sudo snap install zaproxy --classic
 			    pip3 install --upgrade zapcli
  			    
-			    docker exec zap zap-cli --verbose quick-scan $host
-			    docker exec zap zap-cli --verbose report -o owasp-quick-scan-report.html --output-format html
+			    zap-cli --verbose quick-scan $host
+			    zap-cli --verbose report -o owasp-quick-scan-report.html --output-format html
 			 
 			    
 		            

@@ -87,7 +87,7 @@ pipeline {
    	    	  	    sudo apt install snapd
   			    sudo snap install zaproxy --classic
 			    pip3 install --upgrade zapcli
- 			    zap-cli quick-scan --self-contained --spider -r -s xss $host   
+ 			    zap-cli --zap-path /usr/share/zaproxy --api-key 12345 quick-scan --self-contained -o '-config api.key=12345' -s xss $host   
 		            			    
                         '''
                     }

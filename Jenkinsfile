@@ -87,11 +87,8 @@ pipeline {
    	    	  	    sudo apt install snapd
   			    sudo snap install zaproxy --classic
 			    pip3 install --upgrade zapcli
- 			    
-			    zap.sh -quickurl $host -quickout /home/mohammad_fazil/report.xml
-			    
-		            
-			    
+ 			    zap-cli quick-scan --self-contained --spider -r -s xss $host   
+		            			    
                         '''
                     }
             }

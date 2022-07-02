@@ -83,18 +83,7 @@ def scan_type
                     steps {
 			   
                         sh 'echo "Hello World"'
-			sh 'sleep 60'
-			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
-			sh 'kubectl get pods'	
-			sh 'sleep 10'
-			sh 'kubectl get service myapp > intake.txt'
-                        sh '''
-			    
-			    awk '{print $4}' intake.txt > extract.txt
-			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
-			    ip=$(cat finalout.txt)			    
-			    host="http://${ip}"
-			    $TARGET=$host
+			sh '''
 			    echo "Pulling up last OWASP ZAP container --> Start"
 			    docker pull owasp/zap2docker-stable
 			    
@@ -114,6 +103,19 @@ def scan_type
 	    stage('Scanning target on owasp container') {
              steps {
                  script {
+		     sh 'sleep 60'
+			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
+			sh 'kubectl get pods'	
+			sh 'sleep 10'
+			sh 'kubectl get service myapp > intake.txt'
+                        sh '''
+			    
+			    awk '{print $4}' intake.txt > extract.txt
+			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
+			    ip=$(cat finalout.txt)			    
+			    host="http://${ip}"
+			    $TARGET=$host
+			    
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"
                      if(scan_type == "Baseline"){

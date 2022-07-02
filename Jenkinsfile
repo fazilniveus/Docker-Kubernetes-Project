@@ -69,7 +69,7 @@ pipeline {
 	    }
 	    stage('Zap Installation') {
                     steps {
-			    script
+			   
                         sh 'echo "Hello World"'
 			sh 'sleep 60'
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'

@@ -103,10 +103,9 @@ def scan_type
 	    stage('Scanning target on owasp container') {
              steps {
                  script {
-		     sh 'sleep 60'
+		     sh 'sleep 10'
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
 			sh 'kubectl get pods'	
-			sh 'sleep 10'
 			sh 'kubectl get service myapp > intake.txt'
                         sh '''
 			    

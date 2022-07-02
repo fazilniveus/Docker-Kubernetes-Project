@@ -112,15 +112,18 @@ def scan_type
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			    env.TAR = host
+			    
+			    ${params.TARGET} = host
 		        '''
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"
+		     target = "${params.TARGET}"
+			 
                      if(scan_type == "Baseline"){
                          sh """
                              docker exec owasp \
                              zap-baseline.py \
-                             -t ${env.TAR} \
+                             -t $target \
                              -r report.html \
                              -I
                          """
@@ -129,7 +132,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-api-scan.py \
-                             -t ${env.TAR} \
+                             -t $target \
                              -r report.html \
                              -I
                          """
@@ -138,7 +141,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-full-scan.py \
-                             -t ${env.TAR} \
+                             -t $target \
                              //-x report.html
                              -I
                          """

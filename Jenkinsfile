@@ -115,7 +115,7 @@ def scan_type
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    $TARGET=$host
-			    
+		        '''
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"
                      if(scan_type == "Baseline"){

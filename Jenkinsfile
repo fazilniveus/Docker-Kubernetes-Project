@@ -1,5 +1,16 @@
-pipeline {
+def scan_type
+ def target
+ pipeline {
     agent any
+	parameters {
+         	choice  choices: ["Baseline", "APIS", "Full"],
+                 	description: 'Type of scan that is going to perform inside the container',
+                 	name: 'SCAN_TYPE'
+	
+		booleanParam defaultValue: true,
+                 	description: 'Parameter to know if wanna generate report.',
+                 	name: 'GENERATE_REPORT'
+     	}
 	tools {
 		maven 'Maven'
 	}

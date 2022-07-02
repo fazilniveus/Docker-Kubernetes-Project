@@ -113,7 +113,7 @@ def scan_type
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    
-			    params.TARGET = ${host}
+			    params.TARGET = host
 		        """
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"

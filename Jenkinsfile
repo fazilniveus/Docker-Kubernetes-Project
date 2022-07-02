@@ -16,6 +16,7 @@ def scan_type
 	}
 	
 	environment {
+		$TARGET = ''
 		PROJECT_ID = 'tech-rnd-project'
                 CLUSTER_NAME = 'jenkins-jen-cluster'
                 LOCATION = 'asia-south1-a'
@@ -93,7 +94,7 @@ def scan_type
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			    
+			    $TARGET=$host
 			    echo "Pulling up last OWASP ZAP container --> Start"
 			    docker pull owasp/zap2docker-stable
 			    
@@ -119,7 +120,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-baseline.py \
-                             -t $host \
+                             -t $TARGET \
                              -r report.html \
                              -I
                          """
@@ -128,7 +129,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-api-scan.py \
-                             -t $host \
+                             -t $TARGET \
                              -r report.html \
                              -I
                          """
@@ -137,7 +138,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-full-scan.py \
-                             -t $hostg \
+                             -t $TARGET \
                              //-x report.html
                              -I
                          """

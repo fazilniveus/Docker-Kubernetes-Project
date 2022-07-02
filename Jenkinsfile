@@ -6,6 +6,9 @@ def scan_type
          	choice  choices: ["Baseline", "APIS", "Full"],
                  	description: 'Type of scan that is going to perform inside the container',
                  	name: 'SCAN_TYPE'
+		string defaultValue: "",
+                 	description: 'Target URL to scan',
+                 	name: 'TARGET'
 	
 		booleanParam defaultValue: true,
                  	description: 'Parameter to know if wanna generate report.',
@@ -114,7 +117,7 @@ def scan_type
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			    env.TARGET = $host
+			    $TARGET = $host
 		        '''
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"

@@ -16,7 +16,7 @@ def scan_type
 	}
 	
 	environment {
-		$TARGET = ''
+		TARGET = ''
 		PROJECT_ID = 'tech-rnd-project'
                 CLUSTER_NAME = 'jenkins-jen-cluster'
                 LOCATION = 'asia-south1-a'

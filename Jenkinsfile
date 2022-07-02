@@ -114,8 +114,8 @@ def scan_type
 			    
 			'''
 			 sh """
-			    ip=$(cat finalout.txt)
-			    host="http://${ip}"
+			    ip=\$(cat finalout.txt)
+			    host="http://\${ip}"
 			    params.TARGET = host
 		        """
                      scan_type = "${params.SCAN_TYPE}"

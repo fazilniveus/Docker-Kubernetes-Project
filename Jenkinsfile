@@ -141,8 +141,7 @@ def scan_type
                      else{
                          echo "Something went wrong..."
                      }
-                 }
-             }
+             
          }
     }
 }

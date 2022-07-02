@@ -82,63 +82,49 @@ pipeline {
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			'''
 			    
-			    sh 'echo "Pulling up last OWASP ZAP container --> Start"'
-			    sh 'docker pull owasp/zap2docker-stable'
-
-			    echo "Starting container --> Start"
-			    sh """
-    				docker run -dt --name owasp \
-    				owasp/zap2docker-stable \
-    				/bin/bash
-			    """
-
-			    sh 'echo "Creating Workspace Inside Docker"'
-			    sh """
-    				docker exec owasp \
-    				mkdir /zap/wrk
-			    """
-
-			    sh 'echo "Starts Baseline Scan"'
-			    sh """
-    				docker exec owasp \
-    				zap-baseline.py \
-    				-t $host \
-    				-r report.html \
-    				-I
-			    """
-
-			    sh 'echo "Starts API Scan"'
-			    sh """
-    				docker exec owasp \
-    				zap-api-scan.py \
-    				-t $host \
-    				-r report.html \
-    				-I
-			    """
-
+			    echo "Pulling up last OWASP ZAP container --> Start"
+			    docker pull owasp/zap2docker-stable
+			    
+			    "Starting container --> Start"
+			    docker run -dt --name owasp \
+    			    owasp/zap2docker-stable \
+    			    /bin/bash
+			    
+			    
+			    echo "Creating Workspace Inside Docker"
+			    docker exec owasp \
+    			    mkdir /zap/wrk
+			    
+			    echo "Starts Baseline Scan"
+			    docker exec owasp \
+    			    zap-baseline.py \
+    			    -t $host \
+    			    -r report.html \
+    			    -I
+			    
+			    echo "Starts API Scan"
+			    docker exec owasp \
+    			    zap-api-scan.py \
+    			    -t $host \
+    			    -r report.html \
+    			    -I
+			   
 			    echo "Starts FULL Scan"
-			    sh """
-    				docker exec owasp \
-    				zap-full-scan.py \
-    				-t $host \
-    				-r report.html
-    				-I
-			    """                    
-
-		    	    sh 'echo "Copying Report to Workspace"'
-		    	    sh '''
-    				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
-		    	    '''       
-
-		    	    sh 'echo "Removing container"'
-		    	    sh '''
-    				docker stop owasp
-    				docker rm owasp
-			    '''
+			    docker exec owasp \
+    			    zap-full-scan.py \
+    			    -t $host \
+    			    -r report.html\
+    			    -I
 			    
+			    echo "Copying Report to Workspace"
+			    docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
 			    
+			    echo "Removing container"
+			    docker stop owasp
+    			    docker rm owasp
+			    
+			'''                   			    
                     }
             }
     }

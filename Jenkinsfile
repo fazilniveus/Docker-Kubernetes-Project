@@ -80,7 +80,6 @@ def scan_type
 	    }
 	    stage('Zap Installation') {
                     steps {
-			    script{
 				    
 			   
                         sh 'echo "Hello World"'

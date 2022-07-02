@@ -81,16 +81,60 @@ pipeline {
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
-			    sudo apt-get install python3-pip
-                            curl -Ls https://github.com/zaproxy/zaproxy/releases/download/v2.9.0/ZAP_2.9.0_Linux.tar.gz > /tmp/ZAP_2.9.0_Linux.tar.gz
-			    cd /tmp
-			    tar -zxvf ZAP_2.9.0_Linux.tar.gz
-	     		    sudo mv /tmp/ZAP_2.9.0 /opt/
-			    cd /opt
-  			    pip3 install --upgrade zapcli
- 			    zap-cli --zap-path /opt/ZAP_2.9.0 --api-key 12345 quick-scan --self-contained -o '-config api.key=12345' -s xss $host   
-		            			    
-                        '''
+			    
+			    echo "Pulling up last OWASP ZAP container --> Start"
+			    sh 'docker pull owasp/zap2docker-stable'
+
+			    echo "Starting container --> Start"
+			    sh """
+    				docker run -dt --name owasp \
+    				owasp/zap2docker-stable \
+    				/bin/bash
+			    """
+
+			    echo "Creating Workspace Inside Docker"
+			    sh """
+    				docker exec owasp \
+    				mkdir /zap/wrk
+			    """
+
+			    echo "Starts Baseline Scan"
+			    sh """
+    				docker exec owasp \
+    				zap-baseline.py \
+    				-t $host \
+    				-r report.html \
+    				-I
+			    """
+
+			    echo "Starts API Scan"
+			    sh """
+    				docker exec owasp \
+    				zap-api-scan.py \
+    				-t $host \
+    				-r report.html \
+    				-I
+			    """
+
+			    echo "Starts FULL Scan"
+			    sh """
+    				docker exec owasp \
+    				zap-full-scan.py \
+    				-t $host \
+    				-r report.html
+    				-I
+			    """                    
+
+		    	    echo "Copying Report to Workspace"
+		    	    sh '''
+    				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
+		    	    '''       
+
+		    	    echo "Removing container"
+		    	    sh '''
+    				docker stop owasp
+    				docker rm owasp
+			    '''
                     }
             }
     }

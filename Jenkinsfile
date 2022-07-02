@@ -106,7 +106,7 @@ def scan_type
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
 			sh 'kubectl get pods'	
 			sh 'kubectl get service myapp > intake.txt'
-                        sh '''
+                        sh """
 			    
 			    awk '{print $4}' intake.txt > extract.txt
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
@@ -114,7 +114,7 @@ def scan_type
 			    host="http://${ip}"
 			    
 			    params.TARGET = ${host}
-		        '''
+		        """
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"
 		     target = "${params.TARGET}"

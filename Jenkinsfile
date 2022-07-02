@@ -86,7 +86,7 @@ pipeline {
 			    echo "Pulling up last OWASP ZAP container --> Start"
 			    docker pull owasp/zap2docker-stable
 			    
-			    "Starting container --> Start"
+			    echo "Starting container --> Start"
 			    docker run -dt --name owasp \
     			    owasp/zap2docker-stable \
     			    /bin/bash

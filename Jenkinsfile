@@ -95,37 +95,48 @@ pipeline {
 			    echo "Creating Workspace Inside Docker"
 			    docker exec owasp \
     			    mkdir /zap/wrk
-			    
-			    echo "Starts Baseline Scan"
-			    docker exec owasp \
-    			    zap-baseline.py \
-    			    -t $host \
-    			    -r report.html \
-    			    -I
-			    
-			    echo "Starts API Scan"
-			    docker exec owasp \
-    			    zap-api-scan.py \
-    			    -t $host \
-    			    -r report.html \
-    			    -I
-			   
-			    echo "Starts FULL Scan"
-			    docker exec owasp \
-    			    zap-full-scan.py \
-    			    -t $host \
-    			    -r report.html\
-    			    -I
-			    
-			    echo "Copying Report to Workspace"
-			    docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
-			    
-			    echo "Removing container"
-			    docker stop owasp
-    			    docker rm owasp
-			    
-			'''                   			    
-                    }
-            }
+			'''
+		    }
+	    }
+	    
+	    stage('Scanning target on owasp container') {
+             steps {
+                 script {
+                     scan_type = "${params.SCAN_TYPE}"
+                     echo "----> scan_type: $scan_type"
+                     if(scan_type == "Baseline"){
+                         sh """
+                             docker exec owasp \
+                             zap-baseline.py \
+                             -t $host \
+                             -r report.html \
+                             -I
+                         """
+                     }
+                     else if(scan_type == "APIS"){
+                         sh """
+                             docker exec owasp \
+                             zap-api-scan.py \
+                             -t $host \
+                             -r report.html \
+                             -I
+                         """
+                     }
+                     else if(scan_type == "Full"){
+                         sh """
+                             docker exec owasp \
+                             zap-full-scan.py \
+                             -t $hostg \
+                             //-x report.html
+                             -I
+                         """
+                         //-x report-$(date +%d-%b-%Y).xml
+                     }
+                     else{
+                         echo "Something went wrong..."
+                     }
+                 }
+             }
+         }
     }
 }

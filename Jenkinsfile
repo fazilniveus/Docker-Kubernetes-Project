@@ -111,9 +111,10 @@ def scan_type
 			    awk '{print $4}' intake.txt > extract.txt
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)
+			    host="http://${ip}"
+			    
 			'''
 			 sh """
-			    host="http://${ip}"
 			    
 			    params.TARGET = host
 		        """

@@ -6,7 +6,7 @@ def scan_type
          	choice  choices: ["Baseline", "APIS", "Full"],
                  	description: 'Type of scan that is going to perform inside the container',
                  	name: 'SCAN_TYPE'
-		string(name: 'custom_var', defaultValue: '')
+		string(name: 'target', defaultValue: '')
 		booleanParam defaultValue: true,
                  	description: 'Parameter to know if wanna generate report.',
                  	name: 'GENERATE_REPORT'
@@ -113,7 +113,7 @@ def scan_type
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
 			    
-			    env.custom_var = host
+			    params.target = host
 		        '''
                      scan_type = "${params.SCAN_TYPE}"
                      echo "----> scan_type: $scan_type"
@@ -121,7 +121,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-baseline.py \
-                             -t ${env.custom_var} \
+                             -t ${env.target} \
                              -r report.html \
                              -I
                          """
@@ -130,7 +130,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-api-scan.py \
-                             -t ${env.custom_var} \
+                             -t ${env.target} \
                              -r report.html \
                              -I
                          """
@@ -139,7 +139,7 @@ def scan_type
                          sh """
                              docker exec owasp \
                              zap-full-scan.py \
-                             -t ${env.custom_var} \
+                             -t ${env.target} \
                              //-x report.html
                              -I
                          """

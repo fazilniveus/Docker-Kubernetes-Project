@@ -96,12 +96,7 @@ def scan_type
 			    docker exec owasp \
     			    mkdir /zap/wrk
 			'''
-		    }
-	    }
-	    
-	    stage('Scanning target on owasp container') {
-             steps {
-                 script {
+		   
 		     sh 'sleep 10'
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
 			sh 'kubectl get pods'	

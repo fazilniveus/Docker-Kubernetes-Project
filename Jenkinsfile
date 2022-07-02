@@ -82,8 +82,9 @@ pipeline {
 			    grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt
 			    ip=$(cat finalout.txt)			    
 			    host="http://${ip}"
+			'''
 			    
-			    echo "Pulling up last OWASP ZAP container --> Start"
+			    sh 'echo "Pulling up last OWASP ZAP container --> Start"'
 			    sh 'docker pull owasp/zap2docker-stable'
 
 			    echo "Starting container --> Start"
@@ -93,13 +94,13 @@ pipeline {
     				/bin/bash
 			    """
 
-			    echo "Creating Workspace Inside Docker"
+			    sh 'echo "Creating Workspace Inside Docker"'
 			    sh """
     				docker exec owasp \
     				mkdir /zap/wrk
 			    """
 
-			    echo "Starts Baseline Scan"
+			    sh 'echo "Starts Baseline Scan"'
 			    sh """
     				docker exec owasp \
     				zap-baseline.py \
@@ -108,7 +109,7 @@ pipeline {
     				-I
 			    """
 
-			    echo "Starts API Scan"
+			    sh 'echo "Starts API Scan"'
 			    sh """
     				docker exec owasp \
     				zap-api-scan.py \
@@ -126,12 +127,12 @@ pipeline {
     				-I
 			    """                    
 
-		    	    echo "Copying Report to Workspace"
+		    	    sh 'echo "Copying Report to Workspace"'
 		    	    sh '''
     				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
 		    	    '''       
 
-		    	    echo "Removing container"
+		    	    sh 'echo "Removing container"'
 		    	    sh '''
     				docker stop owasp
     				docker rm owasp

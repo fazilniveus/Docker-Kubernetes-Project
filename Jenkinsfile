@@ -127,7 +127,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-baseline.py \
-                               -t ${VAR \
+                               -t $VAR \
                                -r report.html \
                                -I
                            """

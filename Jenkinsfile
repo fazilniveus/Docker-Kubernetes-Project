@@ -116,12 +116,12 @@ def scan_type
 			 sh """
 			    ip=\$(cat finalout.txt)
 			    host="http://\${ip}"
-			    def VAR=\$host
+			    export VAR=\$host
 			    			    
 		        """
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"
-		       target = "${params.TARGET}"
+		       
 			 
                        if(scan_type == "Baseline"){
                            sh """

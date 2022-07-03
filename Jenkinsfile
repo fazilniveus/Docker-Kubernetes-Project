@@ -116,7 +116,7 @@ def scan_type
 			 sh """
 			    ip=\$(cat finalout.txt)
 			    host="http://\${ip}"
-			    export VAR1=\$host
+			    export VAR=\$host
 			    			    
 		        """
                        scan_type = "${params.SCAN_TYPE}"

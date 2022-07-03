@@ -119,43 +119,43 @@ def scan_type
 			    \${params.TARGET} = \$host
 			    echo \$host
 		        """
-                     scan_type = "${params.SCAN_TYPE}"
-                     echo "----> scan_type: $scan_type"
-		     target = "${params.TARGET}"
+                       scan_type = "${params.SCAN_TYPE}"
+                       echo "----> scan_type: $scan_type"
+		       target = "${params.TARGET}"
 			 
-                     if(scan_type == "Baseline"){
-                         sh """
-                             docker exec owasp \
-                             zap-baseline.py \
-                             -t $target \
-                             -r report.html \
-                             -I
-                         """
-                     }
-                     else if(scan_type == "APIS"){
-                         sh """
-                             docker exec owasp \
-                             zap-api-scan.py \
-                             -t $target \
-                             -r report.html \
-                             -I
-                         """
-                     }
-                     else if(scan_type == "Full"){
-                         sh """
-                             docker exec owasp \
-                             zap-full-scan.py \
-                             -t $target \
-                             //-x report.html
-                             -I
-                         """
-                         //-x report-$(date +%d-%b-%Y).xml
-                     }
-                     else{
-                         echo "Something went wrong..."
-                     }
+                       if(scan_type == "Baseline"){
+                           sh """
+                               docker exec owasp \
+                               zap-baseline.py \
+                               -t $target \
+                               -r report.html \
+                               -I
+                           """
+                       }
+                       else if(scan_type == "APIS"){
+                           sh """
+                               docker exec owasp \
+                               zap-api-scan.py \
+                               -t $target \
+                               -r report.html \
+                               -I
+                           """
+                       }
+                       else if(scan_type == "Full"){
+                           sh """
+                               docker exec owasp \
+                               zap-full-scan.py \
+                               -t $target \
+                               //-x report.html
+                               -I
+                            """
+                           //-x report-$(date +%d-%b-%Y).xml
+                       }
+                       else{
+                           echo "Something went wrong..."
+                       }
 				    
-		}
+		  }
 		}
          }
     }

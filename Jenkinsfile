@@ -127,7 +127,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-baseline.py \
-                               -t $VAR1 \
+                               -t ${VAR1} \
                                -r report.html \
                                -I
                            """
@@ -136,7 +136,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-api-scan.py \
-                               -t $VAR1 \
+                               -t ${VAR1} \
                                -r report.html \
                                -I
                            """
@@ -145,7 +145,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-full-scan.py \
-                               -t $VAR1 \
+                               -t ${VAR1} \
                                //-x report.html
                                -I
                             """

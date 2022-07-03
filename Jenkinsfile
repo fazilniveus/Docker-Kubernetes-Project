@@ -116,8 +116,8 @@ def scan_type
 			 sh """
 			    ip=\$(cat finalout.txt)
 			    host="http://\${ip}"
-			    \${params.TARGET} = \$host
-			    echo \$host
+			    export VAR1=\$host
+			    			    
 		        """
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"
@@ -127,7 +127,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-baseline.py \
-                               -t $target \
+                               -t $VAR1 \
                                -r report.html \
                                -I
                            """
@@ -136,7 +136,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-api-scan.py \
-                               -t $target \
+                               -t $VAR1 \
                                -r report.html \
                                -I
                            """
@@ -145,7 +145,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-full-scan.py \
-                               -t $target \
+                               -t $VAR1 \
                                //-x report.html
                                -I
                             """

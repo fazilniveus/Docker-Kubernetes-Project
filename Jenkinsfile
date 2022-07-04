@@ -180,15 +180,7 @@ def scan_type
 			SendEmailNotification("SUCCESSFUL")
 				    
 		  }
-		}
-	    
-
-    
-				
-         		
-    		
-	    
-    }
+	     }
 		
 }
 

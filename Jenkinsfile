@@ -1,5 +1,5 @@
 def scan_type
- def target
+ def host
  pipeline {
     agent any
 	parameters {
@@ -122,6 +122,7 @@ def scan_type
 		 
 	      
 	    	       host="http://${ip}"
+		       echo $host
 			 
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"

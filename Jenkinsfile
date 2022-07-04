@@ -185,7 +185,8 @@ def scan_type
 				}
 			}
 		}
-
+}
+	    
 				def SendEmailNotification(String result) {
   
     					// config 
@@ -211,4 +212,4 @@ def scan_type
          		
     		
 	    
-}
+

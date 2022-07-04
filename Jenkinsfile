@@ -184,6 +184,7 @@ def scan_type
   					}
 				}
 			}
+		}
 
 				def SendEmailNotification(String result) {
   
@@ -208,6 +209,6 @@ def scan_type
 				}
 			
          		
-    		}
+    		
 	    
 }

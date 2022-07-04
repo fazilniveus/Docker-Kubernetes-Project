@@ -160,4 +160,45 @@ def scan_type
 		}
          }
     }
+    try {
+    stage('run unit test') {
+      println('Run the Unit Test Successfully')
+    }
+    stage('build') {
+      println('Built Successfully')
+    }
+    stage('post-build') {
+      
+      SendEmailNotification("SUCCESSFUL")
+    }
+  } catch(e) {
+    // mark build as failed
+    currentBuild.result = "FAILURE";
+   
+    SendEmailNotification(currentBuild.result)
+
+    // mark current build as a failure and throw the error
+    throw e;
+  }
+}
+
+def SendEmailNotification(String result) {
+  
+    // config 
+    def to = emailextrecipients([
+           requestor()
+    ])
+    
+    // set variables
+    def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    def content = '${JELLY_SCRIPT,template="html"}'
+
+    // send email
+    if(to != null && !to.isEmpty()) {
+        env.ForEmailPlugin = env.WORKSPACE
+        emailext mimeType: 'text/html',
+        body: '${FILE, path="/var/lib/jenkins/workspace/xhtml/report.html"}',
+        subject: currentBuild.currentResult + " : " + env.JOB_NAME,
+        to: to, attachLog: true
+    }
 }

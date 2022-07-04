@@ -19,7 +19,6 @@ def scan_type
                 CLUSTER_NAME = 'jenkins-jen-cluster'
                 LOCATION = 'asia-south1-a'
                 CREDENTIALS_ID = 'kubernetes'	
-		TAR = 'abc'
 	}
 	
     stages {
@@ -100,6 +99,8 @@ def scan_type
 			    }
 		    }
 	    stage('Scanning target on owasp container') {
+		    environment {
+			    TAR='abc'
              steps {
                  script {
 		     sh 'sleep 10'
@@ -119,9 +120,8 @@ def scan_type
 			    export VAR=\$host
 			    			    
 		         """
-			 scipt {
-				 env.TAR=$host
-			 }
+			 
+			env.TAR=$host
 			 
 		 
 	      

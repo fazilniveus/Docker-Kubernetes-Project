@@ -114,10 +114,10 @@ def scan_type
 			'''
 
 			IP = sh (
-        			script: 'cat finalout.txt',
+        			script: 'awk '{print $4}' intake.txt > extract.txt && grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt && ip=$(cat finalout.txt) && aa="http://${ip}" %% echo $aa',
         			returnStdout: true
     			).trim()
-    			echo ${IP} 
+    			echo "Git committer email: ${IP} 
 		 
 	      
 	    	     

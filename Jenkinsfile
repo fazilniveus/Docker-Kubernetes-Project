@@ -105,9 +105,10 @@ def scan_type
 			sh 'gcloud container clusters get-credentials jenkins-jen-cluster --zone asia-south1-a --project tech-rnd-project'
 			sh 'kubectl get pods'	
 			sh 'kubectl get service myapp > intake.txt'
+			sh 'awk '{print $4}' intake.txt > extract.txt'
                        
 			IP = sh (
-        			script: 'awk '{print $4}' intake.txt > extract.txt && grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt && ip=$(cat finalout.txt) && aa="http://${ip}" %% echo $aa',
+        			script: 'grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt && ip=$(cat finalout.txt) && aa="http://${ip}" %% echo $aa',
         			returnStdout: true
     			).trim()
     			echo "Git committer email: ${IP} 

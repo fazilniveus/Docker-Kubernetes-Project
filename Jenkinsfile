@@ -107,7 +107,7 @@ def scan_type
 			sh 'kubectl get service myapp > intake.txt'
 			sh """
 			
-				awk '{print $4}' intake.txt > extract.txt'
+				awk '{print \$4}' intake.txt > extract.txt'
                         """
 			IP = sh (
         			script: 'grep -Eo "(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)" extract.txt > finalout.txt && ip=$(cat finalout.txt) && aa="http://${ip}" %% echo $aa',

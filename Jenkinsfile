@@ -183,6 +183,7 @@ def scan_type
     						throw e;
   					}
 				}
+			}
 
 				def SendEmailNotification(String result) {
   
@@ -205,7 +206,7 @@ def scan_type
 					
 					}
 				}
-			}
+			
          		
     		}
 	    

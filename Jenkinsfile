@@ -178,6 +178,7 @@ def scan_type
                        }
 			sh '''
 				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
+				echo ${WORKSPACE}
 				docker stop owasp
                      	docker rm owasp
 			'''

@@ -120,11 +120,7 @@ def scan_type
     			echo ${IP} 
 		 
 	      
-	    	       host="http://${IP}"
-		       IP = sh (
-        			script: 'http://'${IP},
-        			returnStdout: true
-    			).trim()
+	    	     
 			 
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"

@@ -166,13 +166,13 @@ def scan_type
     						stage('run unit test') {
       							println('Run the Unit Test Successfully')
    						 }
-  					  stage('build') {
-      						println('Built Successfully')
-    					}
-    					stage('post-build') {
+  					  	stage('build') {
+      							println('Built Successfully')
+    						}
+    						stage('post-build') {
       
-     						 SendEmailNotification("SUCCESSFUL")
-    					}
+     						 	SendEmailNotification("SUCCESSFUL")
+    						}
   					} catch(e) {
     						// mark build as failed
     						currentBuild.result = "FAILURE";
@@ -202,8 +202,9 @@ def scan_type
         				body: '${FILE, path="/var/lib/jenkins/workspace/xhtml/report.html"}',
         				subject: currentBuild.currentResult + " : " + env.JOB_NAME,
         				to: to, attachLog: true
+					}
     				}
          		}
     		}
-		}
+		
 }

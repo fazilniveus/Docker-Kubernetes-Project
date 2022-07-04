@@ -15,7 +15,7 @@ def scan_type
     if(to != null && !to.isEmpty()) {
         env.ForEmailPlugin = env.WORKSPACE
         emailext mimeType: 'text/html',
-        body: '${FILE, path="/var/lib/jenkins/workspace/zap-email/report.html"}',
+        body: '${FILE, path="/var/lib/jenkins/workspace/demo-cloud-backend/report.html"}',
         subject: currentBuild.currentResult + " : " + env.JOB_NAME,
         to: to, attachLog: true
     }

@@ -117,11 +117,14 @@ def scan_type
         			script: 'cat finalout.txt',
         			returnStdout: true
     			).trim()
-    			echo "Git committer email: ${IP}" 
+    			echo ${IP} 
 		 
 	      
 	    	       host="http://${IP}"
-		       echo $host
+		       IP = sh (
+        			script: 'http://'${IP},
+        			returnStdout: true
+    			).trim()
 			 
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"

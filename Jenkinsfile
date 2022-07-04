@@ -115,7 +115,7 @@ def scan_type
 			 sh """
 			    ip=\$(cat finalout.txt)
 			    export host="http://\${ip}"
-			    
+			    echo $host
 			    			    
 		         """
 			 

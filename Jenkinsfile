@@ -229,6 +229,7 @@ def SendEmailNotification(String result) {
         to: to, attachLog: true
     }
 }
+    }
 				
          		
     		

@@ -181,9 +181,7 @@ def scan_type
 		  }
 		}
 		stage('Scanning target on owasp container') {
-             		steps {
-                 		script {
-		    
+             				    
 		    			try {
     						stage('run unit test') {
       							println('Run the Unit Test Successfully')
@@ -204,8 +202,8 @@ def scan_type
     						// mark current build as a failure and throw the error
     						throw e;
   					}
-				}
-			}
+				
+			
 		}
 }
 	    

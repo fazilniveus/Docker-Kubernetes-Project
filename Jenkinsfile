@@ -128,7 +128,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-baseline.py \
-                               -t $host \
+                               -t ${IP} \
                                -r report.html \
                                -I
                            """
@@ -137,7 +137,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-api-scan.py \
-                               -t $host\
+                               -t ${IP}\
                                -r report.html \
                                -I
                            """
@@ -146,7 +146,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-full-scan.py \
-                               -t $host\
+                               -t ${IP}\
                                //-x report.html
                                -I
                             """

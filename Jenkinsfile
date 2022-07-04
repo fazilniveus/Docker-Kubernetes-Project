@@ -206,5 +206,5 @@ def scan_type
     				}
          		}
     		}
-		
+	    }
 }

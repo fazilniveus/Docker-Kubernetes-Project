@@ -173,30 +173,30 @@ def scan_type
       
      						 SendEmailNotification("SUCCESSFUL")
     					}
-  				} catch(e) {
-    					// mark build as failed
-    					currentBuild.result = "FAILURE";
+  					} catch(e) {
+    						// mark build as failed
+    						currentBuild.result = "FAILURE";
    
-    					SendEmailNotification(currentBuild.result)
+    						SendEmailNotification(currentBuild.result)
 
-    					// mark current build as a failure and throw the error
-    					throw e;
-  				}
-			}
+    						// mark current build as a failure and throw the error
+    						throw e;
+  					}
+				}
 
-			def SendEmailNotification(String result) {
+				def SendEmailNotification(String result) {
   
-    				// config 
-    				def to = emailextrecipients([
-           			requestor()
-    				])
+    					// config 
+    					def to = emailextrecipients([
+           				requestor()
+    					])
     
-    				// set variables
-    				def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
-    				def content = '${JELLY_SCRIPT,template="html"}'
+    					// set variables
+    					def subject = "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ${result}"
+    					def content = '${JELLY_SCRIPT,template="html"}'
 
-    				// send email
-    				if(to != null && !to.isEmpty()) {
+    					// send email
+    					if(to != null && !to.isEmpty()) {
         				env.ForEmailPlugin = env.WORKSPACE
         				emailext mimeType: 'text/html',
         				body: '${FILE, path="/var/lib/jenkins/workspace/xhtml/report.html"}',
@@ -205,5 +205,5 @@ def scan_type
     				}
          		}
     		}
-    
+		}
 }

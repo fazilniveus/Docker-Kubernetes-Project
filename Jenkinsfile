@@ -112,14 +112,15 @@ def scan_type
 			    
 			    
 			'''
-			 sh """
-			    ip=\$(cat finalout.txt)
-			    			    
-		         """
-			 
+
+			IP = sh (
+        			script: 'cat finalout.txt',
+        			returnStdout: true
+    			).trim()
+    			echo "Git committer email: ${IP}" 
 		 
 	      
-	    	       host="http://${ip}"
+	    	       host="http://${IP}"
 		       echo $host
 			 
                        scan_type = "${params.SCAN_TYPE}"

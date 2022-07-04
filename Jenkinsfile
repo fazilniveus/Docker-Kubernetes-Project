@@ -202,9 +202,11 @@ def scan_type
         				body: '${FILE, path="/var/lib/jenkins/workspace/xhtml/report.html"}',
         				subject: currentBuild.currentResult + " : " + env.JOB_NAME,
         				to: to, attachLog: true
+					
 					}
-    				}
-         		}
+				}
+			}
+         		
     		}
-	    }
+	    
 }

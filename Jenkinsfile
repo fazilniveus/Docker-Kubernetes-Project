@@ -168,6 +168,7 @@ def scan_type
                                docker exec owasp \
                                zap-full-scan.py \
                                -t ${IP}\
+			       -f openapi
                                //-x report.html
                                -I
                             """

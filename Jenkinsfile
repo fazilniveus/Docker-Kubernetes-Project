@@ -160,11 +160,7 @@ def scan_type
 				    
 		  }
 		}
-		
-}
-
 	    
-node {
 
   // job
   try {
@@ -209,9 +205,13 @@ def SendEmailNotification(String result) {
         to: to, attachLog: true
     }
 }
-    }
+    
 				
          		
     		
 	    
+
+
+		
+}
 

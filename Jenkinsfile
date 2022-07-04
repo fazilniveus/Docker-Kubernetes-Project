@@ -19,7 +19,7 @@ def scan_type
                 CLUSTER_NAME = 'jenkins-jen-cluster'
                 LOCATION = 'asia-south1-a'
                 CREDENTIALS_ID = 'kubernetes'	
-		TAR = ''
+		TAR = 'abc'
 	}
 	
     stages {
@@ -118,7 +118,14 @@ def scan_type
 			    host="http://\${ip}"
 			    export VAR=\$host
 			    			    
-		        """
+		         """
+			 scipt {
+				 env.TAR=$host
+			 }
+			 
+		 
+	      
+	    	
                        scan_type = "${params.SCAN_TYPE}"
                        echo "----> scan_type: $scan_type"
 		       
@@ -136,7 +143,7 @@ def scan_type
                            sh """
                                docker exec owasp \
                                zap-api-scan.py \
-                               -t $VAR \
+                               -t ${env.TAR}\
                                -r report.html \
                                -I
                            """

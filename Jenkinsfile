@@ -99,9 +99,6 @@ def scan_type
 			    }
 		    }
 	    stage('Scanning target on owasp container') {
-		    environment {
-			    TAR='abc'
-		    }
              steps {
                  script {
 		     sh 'sleep 10'
@@ -117,12 +114,10 @@ def scan_type
 			'''
 			 sh """
 			    ip=\$(cat finalout.txt)
-			    host="http://\${ip}"
+			    export host="http://\${ip}"
 			    
 			    			    
 		         """
-			 
-			env.TAR=$host
 			 
 		 
 	      

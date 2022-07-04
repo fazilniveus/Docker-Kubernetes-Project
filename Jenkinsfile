@@ -176,9 +176,11 @@ def scan_type
                        else{
                            echo "Something went wrong..."
                        }
-			docker cp owasp:/zap/wrk/report.xml ${WORKSPACE}/report.xml
-			docker stop owasp
+			sh '''
+				docker cp owasp:/zap/wrk/report.xml ${WORKSPACE}/report.xml
+				docker stop owasp
                      	docker rm owasp
+			'''
 			SendEmailNotification("SUCCESSFUL")
 				    
 		  }

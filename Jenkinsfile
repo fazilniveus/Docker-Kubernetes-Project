@@ -15,7 +15,7 @@ def scan_type
     if(to != null && !to.isEmpty()) {
         env.ForEmailPlugin = env.WORKSPACE
         emailext mimeType: 'text/html',
-        body: '${FILE, path="/var/lib/jenkins/workspace/xhtml/report.html"}',
+        body: '${FILE, path="/var/lib/jenkins/workspace/report.html"}',
         subject: currentBuild.currentResult + " : " + env.JOB_NAME,
         to: to, attachLog: true
     }
@@ -177,7 +177,7 @@ def scan_type
                            echo "Something went wrong..."
                        }
 			sh '''
-				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/zap-email/report.html
+				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
 				docker stop owasp
                      	docker rm owasp
 			'''

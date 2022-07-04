@@ -181,6 +181,6 @@ def scan_type
 				    
 		  }
 	     }
-		
+	}	
 }
 

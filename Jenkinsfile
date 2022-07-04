@@ -177,7 +177,7 @@ def scan_type
                            echo "Something went wrong..."
                        }
 			sh '''
-				docker cp owasp:/zap/wrk/report.xml ${WORKSPACE}/report.xml
+				docker cp owasp:/zap/wrk/report.html ${WORKSPACE}/report.html
 				docker stop owasp
                      	docker rm owasp
 			'''

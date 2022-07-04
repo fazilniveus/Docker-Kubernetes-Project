@@ -210,8 +210,7 @@ def SendEmailNotification(String result) {
          		
     		
 	    
-
-
+    }
 		
 }
 
